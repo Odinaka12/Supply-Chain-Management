@@ -42,8 +42,22 @@ export default ({
     };
 
     return (
-        <div className="services">
-            <h1>Services</h1>
-        </div>
+        <section>
+            <div className="max-w-7xl mx-auto px-4 md:px-8">
+                <div className="mt-12">
+                    <ul className="grid gap-8 sm:grid-cols-2 md:grid-cols-3">
+                        {team.map((item, i) => (
+                            <li key={i} >
+                                <div onClick={ () => openModelBox(i + 1)} className="w-full h-60 sm:h-52 md:h-56">
+                                    <Images
+                                        src={item.avatar}
+                                        alt={`Team member ${i + 1}`}
+                                        className="w-full h-full object-cover rounded-xl object-center shadow-md"/>
+                                </div>
+                            </li>))}
+                    </ul>
+                </div>
+            </div>
+        </section>
     );
 }
