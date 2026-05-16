@@ -23,7 +23,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-white border-b">
-      <div className="max-w-screen-xl mx-auto px-4 md:px-8">
+      <div className="max-w-screen-7xl mx-auto px-4 md:px-8">
 
         {/* 🔥 MAIN NAV ROW */}
         <div className="flex items-center justify-between py-4">
@@ -55,7 +55,7 @@ export default function Navbar() {
             ) : (
               <button
                 onClick={connectWallet}
-                className="hidden md:flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-full"
+                className="hidden md:flex items-center gap-2 px-4 py-2 bg-gray-800 text-white rounded-full cursor-pointer"
               >
                 Connect
                 <Nav3 />

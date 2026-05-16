@@ -39,7 +39,6 @@ contract SupplyChain {
         address indexed sender,
         address indexed receiver,
         uint256 pickupTime,
-        uint256 deliveryTime,
         uint256 distance,
         uint256 price
     );
@@ -66,7 +65,6 @@ contract SupplyChain {
     function createShipment(
         address _receiver,
         uint256 _pickupTime,
-        uint256 _deliveryTime,
         uint256 _distance,
         uint256 _price
     ) public payable {
@@ -102,7 +100,6 @@ contract SupplyChain {
             msg.sender,
             _receiver,
             _pickupTime,
-            _deliveryTime,
             _distance,
             _price
         );
@@ -150,6 +147,8 @@ contract SupplyChain {
         uint256 amount = shipment.price;
 
         shipment.isPaid = true;
+        typeShipment.isPaid = true;
+
         (bool success, ) = payable(shipment.sender).call{value: amount}("");
         require(success, "Payment failed");
 
@@ -193,5 +192,11 @@ contract SupplyChain {
 
     function getAllTransactions() public view returns (TypeShipment[] memory) {
         return typeShipments;
+    }
+
+    function getUserShipments(
+        address user
+    ) public view returns (Shipment[] memory) {
+        return shipments[user];
     }
 }

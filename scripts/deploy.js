@@ -1,12 +1,14 @@
+
 const hre = require("hardhat");
 
 async function main() {
     const SupplyChain = await hre.ethers.getContractFactory("SupplyChain");
+
     const supplyChain = await SupplyChain.deploy();
 
-    await supplyChain.waitForDeployment();
+    await supplyChain.deployed();
 
-    console.log(`SupplyChain deployed to ${await supplyChain.getAddress()}`);
+    console.log("SupplyChain deployed to:", supplyChain.address);
 }
 
 main().catch((error) => {

@@ -23,6 +23,7 @@ const page = () => {
     getShipment,
     startShipment,
     getShipmentsCount,
+    getAllUserShipments
   } = useContext(TrackingContext);
 
   //STATE VARIABLE
@@ -33,16 +34,27 @@ const page = () => {
   const [getModel, setGetModel] = useState(false);
 
   //DATA STATE VARIABLE
-  const [allShipmentsdata, setallShipmentsdata] = useState();
+  const [allShipmentsdata, setallShipmentsdata] = useState([]);
+
+ const fetchData = async () => {
+    try {
+        const allData = await getAllUserShipments();
+
+        console.log(allData);
+
+        if (allData) {
+            setallShipmentsdata(allData);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+};
 
   useEffect(() => {
-    const getCampaignsData = getAllShipments(); 
-
-    return async () => {
-      const allData = await getCampaignsData;
-      setallShipmentsdata(allData);
+    if(currentUser){
+        fetchData();
     }
-  }, []);
+}, [currentUser]);
 
   return (
     <> 
@@ -57,6 +69,7 @@ const page = () => {
         createShipmentModel={createShipmentModel}
         createShipment={createShipment}
         setCreateShipmentModel={setCreateShipmentModel}
+        fetchData={fetchData}
       />
       <Profile
         openProfile={openProfile}
@@ -68,6 +81,7 @@ const page = () => {
         completeModal={completeModal}
         setCompleteModal={setCompleteModal}
         completeShipment={completeShipment}
+        fetchData={fetchData}
       />
       <GetShipment
         getModel={getModel}
@@ -78,6 +92,7 @@ const page = () => {
         startModal={startModal}
         setStartModal={setStartModal}
         startShipment={startShipment}
+        fetchData={fetchData}
       />
     </>
   );
